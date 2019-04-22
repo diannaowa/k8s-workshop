@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: rng-deployment
+  labels:
+    app: rng
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: rng
+  template:
+    metadata:
+      labels:
+        app: myapp
+        tier: rng
+        environment: dev
+    spec:
+      containers:
+      - name: rng
+        image:  duizhang/rng:1.1
+        ports:
+        - containerPort: 80
