@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rng-pod
+  labels:
+    app: myapp
+    tier: rng
+    environment: dev
+spec:
+  containers:
+  - name: rng-container
+    image: duizhang/rng:1.0
