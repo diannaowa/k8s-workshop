@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: rng-deployment
+  labels:
+    app: rng
+spec:
+  replicas: 8
+  selector:
+    matchLabels:
+      tier: rng
+  template:
+    metadata:
+      labels:
+        app: myapp
+        tier: rng
+        environment: dev
+    spec:
+      containers:
+      - name: rng
+        image:  duizhang/rng:1.0
+        resources:
+          limits:
+             cpu: 500m
+             memory: 1Gi
+          requests:
+             cpu: 100m
+             memory: 500Mi
+        ports:
+        - containerPort: 80
