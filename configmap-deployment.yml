@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: rng-deployment-configmap
+  namespace: projecta-dev
+  labels:
+    app: rng-configmap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: rng-configmap
+  template:
+    metadata:
+      labels:
+        app: myapp
+        tier: rng-configmap
+        environment: dev
+    spec:
+      containers:
+      - name: rng
+        image:  duizhang/rng:1.0
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: example-volume
+          mountPath: /etc/config
+      volumes:
+      - name: example-volume
+        configMap:
+         name: example-config
