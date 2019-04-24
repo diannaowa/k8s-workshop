@@ -1,0 +1,247 @@
+################################################################
+# Global configuration
+################################################################
+
+# Enable debug mode
+#
+# Optional
+# Default: false
+#
+debug = true
+
+# Log level
+#
+# Optional
+# Default: "ERROR"
+#
+logLevel = "DEBUG"
+
+# Entrypoints to be used by frontends that do not specify any entrypoint.
+# Each frontend can specify its own entrypoints.
+#
+# Optional
+# Default: ["http"]
+#
+defaultEntryPoints = ["http", "https"]
+
+################################################################
+# Entrypoints configuration
+################################################################
+
+# Entrypoints definition
+#
+# Optional
+# Default:
+[entryPoints]
+    [entryPoints.http]
+    address = ":80"
+
+    [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+
+################################################################
+# Traefik logs configuration
+################################################################
+
+# Traefik logs
+# Enabled by default and log to stdout
+#
+# Optional
+#
+# [traefikLog]
+
+# Sets the filepath for the traefik log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "log/traefik.log"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# Access logs configuration
+################################################################
+
+# Enable access logs
+# By default it will write to stdout and produce logs in the textual
+# Common Log Format (CLF), extended with additional fields.
+#
+# Optional
+#
+# [accessLog]
+
+# Sets the file path for the access log. If not specified, stdout will be used.
+# Intermediate directories are created if necessary.
+#
+# Optional
+# Default: os.Stdout
+#
+# filePath = "/path/to/log/log.txt"
+
+# Format is either "json" or "common".
+#
+# Optional
+# Default: "common"
+#
+# format = "common"
+
+################################################################
+# API and dashboard configuration
+################################################################
+
+# Enable API and dashboard
+[api]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+  # Enabled Dashboard
+  #
+  # Optional
+  # Default: true
+  #
+  # dashboard = false
+
+################################################################
+# Ping configuration
+################################################################
+
+# Enable ping
+[ping]
+
+  # Name of the related entry point
+  #
+  # Optional
+  # Default: "traefik"
+  #
+  # entryPoint = "traefik"
+
+################################################################
+# Docker configuration backend
+################################################################
+
+# Enable Docker configuration backend
+[docker]
+
+# Docker server endpoint. Can be a tcp or a unix socket endpoint.
+#
+# Required
+# Default: "unix:///var/run/docker.sock"
+#
+# endpoint = "tcp://10.10.10.10:2375"
+endpoint = "unix:///var/run/docker.sock"
+
+# Default domain used.
+# Can be overridden by setting the "traefik.domain" label on a container.
+#
+# Optional
+# Default: ""
+#
+domain = "docker.localhost"
+
+# Expose containers by default in traefik
+#
+# Optional
+# Default: true
+#
+# exposedByDefault = true
+
+
+################################################################
+## Kubernetes Ingress Provider
+#################################################################
+#
+## Enable Kubernetes Ingress Provider.
+[kubernetes]
+#
+## Kubernetes server endpoint.
+##
+## Optional for in-cluster configuration, required otherwise.
+## Default: empty
+##
+endpoint = "https://172.30.29.7:442"
+#
+## Bearer token used for the Kubernetes client configuration.
+##
+## Optional
+## Default: empty
+##
+token = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJ0cmFlZmlrLWluZ3Jlc3MtY29udHJvbGxlci10b2tlbi12c2wyNyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJ0cmFlZmlrLWluZ3Jlc3MtY29udHJvbGxlciIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjhkZjQ4NTVmLTY2NjQtMTFlOS04Y2Q1LWZhMTYzZTJlOWFlMSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTp0cmFlZmlrLWluZ3Jlc3MtY29udHJvbGxlciJ9.QZXZGNYsJbyq8V8RiH6eP3Ogyw0T0O4-qJ-64On3BfeP3Tiu3DRTSMDALZ32BHo-tynL1QWiPxD0xDy53hs2rqBgAm27w_i4mj_PkzRVIu7N8jl0I4mRv_Fps_mhUirvxIaQP5_0dbniyf0F0Igp8SncwjOTFP0mx_Dk7HV25GpvnRAGi1CmLnbopi43NoSA7OLEuBbsEqAhTJLEFBJw08KMyI5_DBP4Fb4WmUBfK2HX0Em81A8U-HQ5bUjFjEH5TeWT6Yaw2EUuvKVF9acUQ8f9IVYqapl8MwO-QzLq239DTsQM2r6KROb7HyOI2m7_x2s0MY8MvqxhOXgX-I0ItQ"
+
+## Path to the certificate authority file.
+## Used for the Kubernetes client configuration.
+##
+## Optional
+## Default: empty
+##
+certAuthFilePath = "/etc/kubernetes/pki/ca.crt"
+#
+## Array of namespaces to watch.
+##
+## Optional
+## Default: all namespaces (empty array).
+##
+namespaces = ["default"]
+#
+## Ingress label selector to filter Ingress objects that should be processed.
+##
+## Optional
+## Default: empty (process all Ingresses)
+##
+## labelselector = "A and not B"
+#
+## Value of `kubernetes.io/ingress.class` annotation that identifies Ingress objects to be processed.
+## If the parameter is non-empty, only Ingresses containing an annotation with the same value are processed.
+## Otherwise, Ingresses missing the annotation, having an empty value, or the value `traefik` are processed.
+##
+## Optional
+## Default: empty
+##
+## ingressClass = "traefik-internal"
+#
+## Disable PassHost Headers.
+##
+## Optional
+## Default: false
+##
+## disablePassHostHeaders = true
+#
+## Enable PassTLSCert Headers.
+##
+## Optional
+## Default: false
+##
+## enablePassTLSCert = true
+#
+## Override default configuration template.
+##
+## Optional
+## Default: <built-in template>
+##
+## filename = "kubernetes.tmpl"
+#
+## Enable IngressEndpoint configuration.
+## This will allow Traefik to update the status section of ingress objects, if desired.
+##
+## Optional
+##
+## [kubernetes.ingressEndpoint]
+##
+## At least one must be configured.
+## `publishedservice` will override the `hostname` and `ip` settings if configured.
+##
+## hostname = "localhost"
+## ip = "127.0.0.1"
+## publishedService = "namespace/servicename"
